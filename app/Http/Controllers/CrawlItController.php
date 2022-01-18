@@ -13,4 +13,8 @@ class CrawlItController extends Controller
     public function home(){
         return view("home");
     }
+
+    public function crawl(Request $request){
+        dd($request->all());
+    }
 }

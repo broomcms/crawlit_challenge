@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////-->
 <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="">
+      <a class="navbar-brand" href="/">
         <h1>Crawl IT</h1>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#crawl">Crawl It</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a>
           </li>
@@ -109,16 +109,17 @@
       </div>
       <div class="col-12 col-lg-6 bg-white shadow p-3">
         <div class="form w-100 pb-2">
-          <h4 class="display-3--title mb-5">start your project</h4>
-          <form action="/" method="post" class="row">
+          <h4 class="display-3--title mb-5">Crawl it!</h4>
+          <form action="/crawl" method="post" class="row">
+            @csrf
             <div class="col-lg-6 col-md mb-3">
-              <input type="text" placeholder="https://" id="url" class="shadow form-control form-control-lg">
+              <input name="url" type="text" placeholder="https://" id="url" class="shadow form-control form-control-lg">
             </div>
             <div class="col-lg-6 col-md mb-3">
-              <input type="numeric" placeholder="# of pages" id="pages" class="shadow form-control form-control-lg">
+              <input name="page" type="numeric" placeholder="# of pages" id="pages" class="shadow form-control form-control-lg">
             </div>
             <div class="text-center d-grid mt-1">
-              <button type="button" class="btn btn-primary rounded-pill pt-3 pb-3">
+              <button type="submit" class="btn btn-primary rounded-pill pt-3 pb-3">
                 submit
                 <i class="fas fa-paper-plane"></i>
               </button>
