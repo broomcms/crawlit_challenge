@@ -41,3 +41,4 @@ RUN chmod +x /usr/local/bin/dep
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 RUN sh -c "echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf"
+RUN chmod -R 0777 /application/storage
