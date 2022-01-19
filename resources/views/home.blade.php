@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Crawlit</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top">
@@ -100,19 +102,34 @@
                 <div class="col-12 col-lg-6 bg-white shadow p-3">
                     <div class="form w-100 pb-2">
                         <h4 class="display-3--title mb-5">Crawl it!</h4>
-                        <form action="/crawl" method="post" class="row">
-                            @csrf
-                            <div class="col-lg-6 col-md mb-3">
-                            <input name="url" type="text" placeholder="https://" id="url" class="shadow form-control form-control-lg">
+                            <div id="error" class="alert alert-danger" style="display:none">
+                                Jeez boss, not sure what just happened but I got lost while I was crawling. 
+                                I took a taxi back home but forgot the data I started collecting. I think 
+                                the taxi's dog eat it or something. I swear! Mind trying with a lower 
+                                number of pages maybe? Or try a different URL? You sure it was valid?
                             </div>
-                            <div class="col-lg-6 col-md mb-3">
-                            <input name="pages" type="numeric" placeholder="# of pages" id="pages" class="shadow form-control form-control-lg">
+                            <div id="goaheaddude">
+                                <div class="col-lg-6 col-md mb-3">
+                                    <input name="url" type="text" placeholder="https://" id="url" class="shadow form-control form-control-lg">
+                                </div>
+                                <div class="col-lg-6 col-md mb-3">
+                                    <input name="pages" type="number" placeholder="# of pages" id="pages" class="shadow form-control form-control-lg">
+                                </div>
+                                <div id="submitbutton" class="text-center d-grid mt-1">
+                                    <button id="CrawlItDude" type="button" class="btn btn-primary rounded-pill pt-3 pb-3">
+                                        submit
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="text-center d-grid mt-1">
-                            <button type="submit" class="btn btn-primary rounded-pill pt-3 pb-3">
-                                submit
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                            <div id="justasecdude" style="display:none; color:#000;" class="text-center">
+                                Please whait while we crawl it for you!
+                                <img style="display:block; margin:0 auto" src="/images/loading.gif">
+                                <div id="iamarobotnotaslave" style="display:none">
+                                    Jeez ... this is taking longer than expected ... What did you make me crawl anyway?
+                                    I might need a raise ... Not much really ... Maybe just some ram you know ...
+                                    Anyway, think about it while I finish up!
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -182,19 +199,66 @@
         <i class="fas fa-chevron-up"></i>
     </a>
    
-    <script src="assets/vendors/js/glightbox.min.js"></script>
+    <script src="assets/vendors/glightbox/js/glightbox.min.js"></script>
 
     <script type="text/javascript">
-      const lightbox = GLightbox({
-        'touchNavigation': true,
-        'href': 'https://www.youtube.com/watch?v=J9lS14nM1xg',
-        'type': 'video',
-        'source': 'youtube', //vimeo, youtube or local
-        'width': 900,
-        'autoPlayVideos': 'true',
-      });
-    
+        const lightbox = GLightbox({
+            'touchNavigation': true,
+            'href': 'https://www.youtube.com/watch?v=J9lS14nM1xg',
+            'type': 'video',
+            'source': 'youtube', //vimeo, youtube or local
+            'width': 900,
+            'autoPlayVideos': 'true',
+        });
+
+        $(document).ready(function(){
+
+            // Starting state
+            $('#justasecdude').hide();
+            $('#iamarobotnotaslave').hide();
+            $('#goaheaddude').show();
+            $('#error').hide();
+
+            $('#CrawlItDude').on('click', function () {
+
+                // Activated state
+                $('#goaheaddude').hide();
+                $('#iamarobotnotaslave').hide();
+                $('#justasecdude').show();
+                $('#error').hide();
+
+                // Giving a smile in case this takes longer then expected
+                setTimeout(function(){
+                    $('#iamarobotnotaslave').fadeIn("slow");
+                }, 5000);
+
+                $.ajax({
+                    url: '/crawl',
+                    type: "post",
+                    data: {
+                        url: $("#url").val(),
+                        pages: $("#pages").val(),
+                        _token:"{{ csrf_token() }}"
+                    },
+                    dataType : 'json',
+                    success: function(data){
+                        // Done state
+                        $('#iamarobotnotaslave').hide();
+                        $('#justasecdude').hide();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        // Error state
+                        $('#iamarobotnotaslave').hide();
+                        $('#justasecdude').hide();
+                        $('#goaheaddude').show();
+                        $('#error').show();
+                    }
+                });
+            });
+        });
     </script>
+    
+    
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
