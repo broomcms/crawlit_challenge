@@ -30,6 +30,15 @@ class CrawlItController extends Controller
 
             // Get the HTML for the starting page
             $start = $this::getHTML($request->url);
+
+            // Get word count
+            $words = $this::wordCount($start['html']);
+            $totalWords = 0;
+            foreach ($words as $key=>$word) {
+                $totalWords += $word;
+            }
+           
+            // Get data for the starting page
             $links = array(array(
                     "pageTitle" => ($this::getTitle($start['html'])?$this::getTitle($start['html']):$request->url),
                     "linkTitle"=> "",
@@ -39,7 +48,10 @@ class CrawlItController extends Controller
                     "time" => $start['time'],
                     "html" => base64_encode($start['html']),
                     "img" => $this::getImages($start['html']),
-                    "img_count" => count($this::getImages($start['html']))
+                    "img_count" => count($this::getImages($start['html'])),
+                    "word_count" => count($words),
+                    "words" => $words,
+                    "total_words"=> $totalWords
                 )
             );
 
@@ -47,7 +59,7 @@ class CrawlItController extends Controller
             // We remove one cause we obiously started with 1 url already
             $max = $request->pages -1;
 
-            // Get all links from this HTML
+            // Get all links from this HTML & build sub page data
             if ($max>=1){
                 $links_found = $this::hrefCrawl($start['html'], $request->url, $request->pages);
                 $links = array_merge($links, $links_found);
@@ -66,10 +78,55 @@ class CrawlItController extends Controller
             }
 
             // Return json back to the browser
-            return response()->json($links);
+            return response()->json($this::datatableOutput($links));
 
         }
 
+    }
+
+    /**
+     * wordCount()
+     * Not 100% accurate but it's a start. With time, I could review this function and get a better output of words
+     */
+    public static function wordCount($html){
+
+        // Get rid of style, script etc
+        $search = array('@<script[^>]*?>.*?</script>@si',  // Strip out javascript
+                '@<head>.*?</head>@siU',            // Lose the head section
+                '@<style[^>]*?>.*?</style>@siU',    // Strip style tags properly
+                '@<![\s\S]*?--[ \t\n\r]*>@'         // Strip multi-line comments including CDATA
+        );
+
+        $contents = preg_replace($search, '', $html); 
+        $result = array_count_values(str_word_count(strip_tags($contents), 1));
+
+        return $result;
+
+    }
+
+    /**
+     * datatableOutput()
+     * Retuns the expected achitechture of the array for datatable
+     *
+     * @param [array] $array
+     * @return void
+     */
+    public static function datatableOutput($array){
+
+        foreach($array as $key=>$line){
+            $output[] = [
+                $line['href'],
+                $line['code'],
+                $line['time'],
+                $line['img_count'],
+                $line['int_count'],
+                $line['ext_count'],
+                $line['word_count'],
+                $line['total_words']
+            ];
+        }
+
+        return array('data'=> $output);
     }
 
     /**
@@ -86,7 +143,7 @@ class CrawlItController extends Controller
         $output["html"] = curl_exec($curl);
         curl_close($curl);
         $time_end = microtime(true);
-        $output["time"] = ($time_end - $time_start);
+        $output["time"] = round(($time_end - $time_start), 3);
         return $output;
     }
 
@@ -175,6 +232,13 @@ class CrawlItController extends Controller
                     $code = CrawlItController::getHeaders($linkHref);
                     $currentHTML = CrawlItController::getHTML($linkHref);
 
+                    // Get word count
+                    $words = CrawlItController::wordCount($currentHTML['html']);
+                    $totalWords = 0;
+                    foreach ($words as $key=>$word) {
+                        $totalWords += $word;
+                    }
+
                     //Add the link to our $extractedLinks array.
                     $extractedLinks[] = array(
                         'pageTitle' => CrawlItController::getTitle($currentHTML['html']),
@@ -186,7 +250,10 @@ class CrawlItController extends Controller
                         'html' => base64_encode($currentHTML['html']),
                         "img" =>CrawlItController::getImages($currentHTML['html']),
                         "img" => CrawlItController::getImages($currentHTML['html']),
-                        "img_count" => count(CrawlItController::getImages($currentHTML['html']))
+                        "img_count" => count(CrawlItController::getImages($currentHTML['html'])),
+                        "word_count" => count($words),
+                        "words" => $words,
+                        "total_words"=> $totalWords
                     );
 
 

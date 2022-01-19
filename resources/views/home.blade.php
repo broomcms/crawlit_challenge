@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top">
@@ -104,16 +106,21 @@
                         <h4 class="display-3--title mb-5">Crawl it!</h4>
                             <div id="error" class="alert alert-danger" style="display:none">
                                 Jeez boss, not sure what just happened but I got lost while I was crawling. 
-                                I took a taxi back home but forgot the data I started collecting. I think 
-                                the taxi's dog eat it or something. I swear! Mind trying with a lower 
-                                number of pages maybe? Or try a different URL? You sure it was valid?
+                                I took a taxi back home but I think the taxi's dog eat it or something. I swear! <br>
+                                <br>
+                                Anyway, lets just say it's Trumps fault and leave it at that!<br>
+                                <br>
+                                Mind trying with a lower number of pages maybe? Or try a different URL? 
+                                You sure it was a valid link? Try out this one: <b>https://agencyanalytics.com</b>
+                                With 10 pages. Works like a charme. They know there stuff! Anything after 10
+                                pages is at risk of causing a 504 error. 
                             </div>
                             <div id="goaheaddude">
                                 <div class="col-lg-6 col-md mb-3">
                                     <input name="url" type="text" placeholder="https://" id="url" class="shadow form-control form-control-lg">
                                 </div>
                                 <div class="col-lg-6 col-md mb-3">
-                                    <input name="pages" type="number" placeholder="# of pages" id="pages" class="shadow form-control form-control-lg">
+                                    <input name="pages" type="number" placeholder="Total pages" id="pages" class="shadow form-control form-control-lg">
                                 </div>
                                 <div id="submitbutton" class="text-center d-grid mt-1">
                                     <button id="CrawlItDude" type="button" class="btn btn-primary rounded-pill pt-3 pb-3">
@@ -123,7 +130,7 @@
                                 </div>
                             </div>
                             <div id="justasecdude" style="display:none; color:#000;" class="text-center">
-                                Please whait while we crawl it for you!
+                                (Bip Bop) Please whait while I crawl this for you!
                                 <img style="display:block; margin:0 auto" src="/images/loading.gif">
                                 <div id="iamarobotnotaslave" style="display:none">
                                     Jeez ... this is taking longer than expected ... What did you make me crawl anyway?
@@ -137,6 +144,88 @@
             </div>
         </div>
     </section>
+
+    <section id="report_section" class="faq" style="display:none">
+        <div class="container">
+          <div class="row text-center">
+            <h1 class="display-3 fw-bold text-uppercase">report for (<span id="nbPages">0</span>) pages</h1>
+            <div class="heading-line"></div>
+            <p class="lead">Ok I got it all sorted! Heres your results!</p>
+          </div>
+
+          <table id="report" class="display" width="100%"></table>
+
+          <!-- ACCORDION CONTENT  -->
+          <div class="row mt-5">
+            <div class="col-md-12">
+              <div class="accordion" id="accordionExample">
+                <!-- ACCORDION ITEM 1 -->
+                <div class="accordion-item shadow mb-3">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Averages
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <b>Unique Words</b><br>
+                        I found a total of <span id="uwordSum">0</span> unique words on <span class="totalPages">0</span> pages and that gives me an average of <span id="uwordAvr">0</span><br><br>
+                        <b>All Words</b><br>
+                        I found a total of <span id="wordSum">0</span> words on <span class="totalPages">0</span> pages and that gives me an average of <span id="wordAvr">0</span><br><br>
+                        <b>Unique images</b><br>
+                        I found a total of <span id="uimageSum">0</span> unique images on <span class="totalPages">0</span> pages and that gives me an average of <span id="uimageAvr">0</span><br><br>
+                        <b>All images</b><br>
+                        I found a total of <span id="imageSum">0</span> images on <span class="totalPages">0</span> pages and that gives me an average of <span id="imagedAvr">0</span><br><br>
+                        <b>Load speed</b><br>
+                        The total crawl speed of the <span class="totalPages">0</span> pages was <span id="speedSum">0</span> and that gives me an average of <span id="speedAvr">0</span>
+
+                    </div>
+                  </div>
+                </div>
+                   <!-- ACCORDION ITEM 2 -->
+                <div class="accordion-item shadow mb-3">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      do i have to pay again after trial
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                  </div>
+                </div>
+                   <!-- ACCORDION ITEM 3 -->
+                <div class="accordion-item shadow mb-3">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  How can I get started after trial?
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                  </div>
+                </div>
+                   <!-- ACCORDION ITEM 4 -->
+                <div class="accordion-item shadow mb-3">
+                  <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      Can I be refunded if am not satisfied?
+                    </button>
+                  </h2>
+                  <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
     <footer id="contact" class="footer">
         <div class="container">
@@ -213,12 +302,34 @@
 
         $(document).ready(function(){
 
+            // A helper function that will take a JSON object 
+            // and give back average for a given col
+            function getAvr(arr, key) {
+                var count = 0;
+                var sum = 0;
+                var res = new Array("sum", "count", "avr");
+
+                $.each(arr, function(k, v){
+                    count++;
+                    sum += v[key];
+                });
+
+                res['sum'] = sum;
+                res['count'] = count;
+                res['avr'] = sum / count;
+
+                console.log(res);
+
+                return res;
+            }
+
             // Starting state
             $('#justasecdude').hide();
             $('#iamarobotnotaslave').hide();
             $('#goaheaddude').show();
             $('#error').hide();
 
+            // Start crawling
             $('#CrawlItDude').on('click', function () {
 
                 // Activated state
@@ -232,6 +343,7 @@
                     $('#iamarobotnotaslave').fadeIn("slow");
                 }, 5000);
 
+                // Get JSON data from the backend
                 $.ajax({
                     url: '/crawl',
                     type: "post",
@@ -242,9 +354,42 @@
                     },
                     dataType : 'json',
                     success: function(data){
+
+                        // Retreive Average data
+                        var loadAvr = getAvr(data.data, '2');
+                        var uWorddAvr = getAvr(data.data, '6');
+                        var wordAvr = getAvr(data.data, '7');
+
                         // Done state
                         $('#iamarobotnotaslave').hide();
                         $('#justasecdude').hide();
+                        $('#crawl').hide();
+                        $('#report_section').show();
+
+                        // Feeding values inside the report section
+                        $('#nbPages').html($("#pages").val());
+                        $('.totalPages').html($("#pages").val());
+                        $('#wordSum').html(wordAvr['sum']);
+                        $('#wordAvr').html(wordAvr['avr']);
+                        $('#uwordSum').html(uWorddAvr['sum']);
+                        $('#uwordAvr').html(uWorddAvr['avr']);
+                        $('#speedSum').html(loadAvr['sum']);
+                        $('#speedAvr').html(loadAvr['avr']);
+
+                        // Create a datatable instance and insert data inside
+                        $('#report').DataTable( {
+                            data: data.data,
+                            columns: [
+                                { title: "Page" },
+                                { title: "Http Status" },
+                                { title: "Crawl time (sec)" },
+                                { title: "Total images" },
+                                { title: "Total internal links" },
+                                { title: "Total external links" },
+                                { title: "Total unique words" },
+                                { title: "Total word count" },
+                            ]
+                        } );
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         // Error state
