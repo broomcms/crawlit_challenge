@@ -6,6 +6,11 @@
 
 # What is this?
 Hey guys! I just received an onboarding challenge from Agency Analytics. This is my solution! In order to get this challenge going, I created a docker box. Been using it for a while and really like it's simplicity. For this challenge, I decided to create a bootstrap frontend website where the user can submit a URL and a number of pages to crawl. The request in then send by AJAX using jQuery to a server side PHP script. It receives the information and send back a JSON payload. I am using a Laravel 8 framework for this project on a PHP 8 nginx server. Please refer yourself to this readme for a full explanation on how it works.
+
+<p align="center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-O5fir17sIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
 ## About This challenge
 
 Using PHP, build a web crawler to display information about a given website.

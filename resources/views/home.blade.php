@@ -286,7 +286,7 @@
     <script type="text/javascript">
         const lightbox = GLightbox({
             'touchNavigation': true,
-            'href': 'https://www.youtube.com/watch?v=J9lS14nM1xg',
+            'href': 'https://www.youtube.com/watch?v=-O5fir17sIk',
             'type': 'video',
             'source': 'youtube', //vimeo, youtube or local
             'width': 900,

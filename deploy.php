@@ -56,14 +56,7 @@ task('deploy', [
 
 task('deploy:owner', function () {
 
-    $stage = null;
-    if (input()->hasArgument('stage')) {
-        $stage = input()->getArgument('stage');
-    }
-
-    if ($stage=="prod"){
-        run('chown -R crawlit:crawlit /home/crawlit/public_html');
-    }
+    run('chown -R crawlit:crawlit /home/crawlit/public_html');
 });
 
 task('reload:php-fpm', function () {
