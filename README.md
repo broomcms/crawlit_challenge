@@ -53,10 +53,17 @@ You should now have access to http://localhost:3000
 
 ## Project flow
 
+![image](https://user-images.githubusercontent.com/63425041/150263488-72e551b7-e860-499b-b484-3742ca4b0a30.png)
+
  - The user submits a payload with "URL to scan" and "Number of pages to scan"
  - The payload is sent to the CrawIfController at the crawl() function
  - The crawl function will then build and array of data and send it back to the ajax request in JSON format
  - If successful, the user view will change to the report page by it self
+
+## Project screenshots
+
+<a href="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" width="300"></a> <a href="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" width="300"></a> <a href="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" width="300"></a>
+
 
  ## Project highlights
 
