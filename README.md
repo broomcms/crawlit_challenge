@@ -70,7 +70,7 @@ This will deploy the repo to the remote server and take care of taking the last 
 ## Project flow
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/63425041/150263488-72e551b7-e860-499b-b484-3742ca4b0a30.png)
+<img src="https://user-images.githubusercontent.com/63425041/150263488-72e551b7-e860-499b-b484-3742ca4b0a30.png">
 </p>
 
  - The user submits a payload with "URL to scan" and "Number of pages to scan"
