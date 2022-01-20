@@ -37,7 +37,7 @@ class CrawlItController extends Controller
             foreach ($words as $key=>$word) {
                 $totalWords += $word;
             }
-           
+
             // Get data for the starting page
             $links = array(array(
                     "pageTitle" => ($this::getTitle($start['html'])?$this::getTitle($start['html']):$request->url),
@@ -45,7 +45,7 @@ class CrawlItController extends Controller
                     "href" => $request->url,
                     "code" => $this::getHeaders($request->url),
                     "int_ext" => "int",
-                    "time" => $start['time'],
+                    "time" => round($start['time'],3),
                     "html" => base64_encode($start['html']),
                     "img" => $this::getImages($start['html']),
                     "img_count" => count($this::getImages($start['html'])),
@@ -65,20 +65,78 @@ class CrawlItController extends Controller
                 $links = array_merge($links, $links_found);
             }
 
+            $wordArray = array();
+            $imgArray = array();
+            $uimgArray = array();
+            $sumTitle = "0";
+            $titleCount = 0;
+
             // We count how many links are internal and how many are external
             foreach($links as $key=>$link){
 
+                // Lets add the missing link data to the array
                 $count = $this::hrefCount(base64_decode($link['html']), $link['href']);
-
                 $links[$key]['int_count'] = count($count['int']);
                 $links[$key]['int_links'] = $count['int'];
                 $links[$key]['ext_count'] = count($count['ext']);
                 $links[$key]['ext_links'] = $count['ext'];
 
+                // Lets rebuild a globolized array of words
+                $k=0;
+                foreach($link['words'] as $key=>$value){
+                    $keyFilter = array_search($key, $wordArray);
+                    if ($keyFilter){
+                        $wordArray[$keyFilter]['used'] = $value + $wordArray[$keyFilter]['used'];
+                    }else{
+                        $wordArray[$k]["word"] = $key;
+                        $wordArray[$k]["used"] = $value;
+                    }
+                    $k++;
+                }
+
+                // Lets rebuild a globolized array of images
+                $total_uimages=0;
+                foreach($link['img'] as $key=>$value){
+                    $uimgArray[] = $value;
+                    $total_uimages++;
+                }
+
+                $total_images=0;
+                foreach($link['img'] as $key=>$value){
+                    $keyFilter = array_search($value, $imgArray);
+                    if (!$keyFilter){
+                        $imgArray[$total_images] = $value;
+                    }
+                    $total_images++;
+                }
+
+                // Title lenght
+                if (isset($link['pageTitle'])&&$link['pageTitle']!=""){
+                    $sumTitle = $sumTitle + strlen($link['pageTitle']);
+                    $titleCount++;
+                }
+
             }
 
+            //Now that we have perpage stats lets get some over all stats as well
+            //Get all links
+            $out['res']['href'] = array_unique(array_column($links, 'href'));
+            $out['res']['img'] =  $imgArray;
+            $out['res']['img_count'] =  count($imgArray);
+            $out['res']['img_sum'] =  $total_images;
+            $out['res']['img_avr'] =  count($imgArray)/$request->pages;
+            $out['res']['uimg'] =  $uimgArray;
+            $out['res']['uimg_count'] =  count($uimgArray);
+            $out['res']['uimg_avr'] =  count($uimgArray)/$request->pages;
+            $out['res']['title_count'] =  $titleCount;
+            $out['res']['title_avr'] =  $sumTitle/$titleCount;
+            $out['res']['words'] = $wordArray;
+            $out['data'] = $links;       
+
+            //dd($this::datatableOutput($out));
+            
             // Return json back to the browser
-            return response()->json($this::datatableOutput($links));
+            return response()->json($this::datatableOutput($out));
 
         }
 
@@ -113,7 +171,7 @@ class CrawlItController extends Controller
      */
     public static function datatableOutput($array){
 
-        foreach($array as $key=>$line){
+        foreach($array['data'] as $key=>$line){
             $output[] = [
                 $line['href'],
                 $line['code'],
@@ -122,11 +180,12 @@ class CrawlItController extends Controller
                 $line['int_count'],
                 $line['ext_count'],
                 $line['word_count'],
-                $line['total_words']
+                $line['total_words'],
+                $line['img']
             ];
         }
 
-        return array('data'=> $output);
+        return array('data'=> $output,'res'=> $array['res']);
     }
 
     /**
@@ -246,7 +305,7 @@ class CrawlItController extends Controller
                         'href' => $linkHref,
                         'code' => $code,
                         'int_ext' => ($parseCurrent["host"]==$parseStart["host"]?"int":"ext"),
-                        'time' => $currentHTML['time'],
+                        'time' => round($currentHTML['time'],3),
                         'html' => base64_encode($currentHTML['html']),
                         "img" =>CrawlItController::getImages($currentHTML['html']),
                         "img" => CrawlItController::getImages($currentHTML['html']),

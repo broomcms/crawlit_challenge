@@ -1,24 +1,6 @@
 version: '3.1'
 services:
 
-    mysql:
-      image: 'mysql:8.0'
-      working_dir: /application
-      container_name: mysql_crawlitchallenge
-      restart: unless-stopped
-      tty: true
-      volumes:
-          - '.:/application'
-      environment:
-          - MYSQL_ROOT_PASSWORD=secret
-          - MYSQL_DATABASE=crawlitchallengedb
-          - MYSQL_USER=crawlitchallengeuser
-          - MYSQL_PASSWORD=secret
-      ports:
-          - '3306:3306'
-      networks:
-        - crawlitchallenge
-
     webserver:
       image: 'nginx:alpine'
       working_dir: /application
@@ -38,21 +20,6 @@ services:
       volumes:
           - '.:/application'
           - './phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini'
-      networks:
-        - crawlitchallenge
-
-    phpmyadmin:
-      image: phpmyadmin/phpmyadmin:latest
-      working_dir: /application
-      restart: always
-      container_name: phpmyadmin_crawlitchallenge
-      environment:
-        PMA_HOST: mysql_crawlitchallenge
-        PMA_USER: root
-        PMA_PASSWORD: secret
-        MYSQL_ROOT_PASSWORD: secret
-      ports:
-        - "3001:80"
       networks:
         - crawlitchallenge
 

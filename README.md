@@ -1,64 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://agencyanalytics.com/" target="_blank"><img src="https://yt3.ggpht.com/pSA2H36bm63MQA24wuZBx_JMj0vZgKzpvjsx6WS8NSwqNT1kLamMW1XoM4BOMpz5-Faiy8pPTQ=s900-c-k-c0x00ffffff-no-rj" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# What is this?
+Hey guys! I just received an onboarding challenge from Agency Analytics. This is my solution! In order to get this challenge going, I created a docker box. Been using it for a while and really like it's simplicity. For this challenge, I decided to create a bootstrap frontend website where the user can submit a URL and a number of pages to crawl. The request in then send by AJAX using jQuery to a server side PHP script. It receives the information and send back a JSON payload. I am using a Laravel 8 framework for this project on a PHP 8 nginx server. Please refer yourself to this readme for a full explanation on how it works.
+## About This challenge
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Using PHP, build a web crawler to display information about a given website.
+Crawl 4-6 pages of our website agencyanalytics.com given a single entry point. Once
+the crawl is complete, display the following results:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+ - Number of pages crawled
+ - Number of a unique images
+ - Number of unique internal links
+ - Number of unique external links
+ - Average page load in seconds
+ - Average word count
+ - Average title length
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Also display a table that shows each page you crawled and the HTTP status code
+Deploy to a server that can be accessed over the internet. You can use any host of
+your choosing such as AWS, Google Cloud, Heroku, Azure etc. Be sure to include the
+url in your submission.
 
-## Learning Laravel
+## Docker Information
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+I created a very nice docker setup for this challenge. It's composed of 2 containers.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+ - Container 1: webserver I will be using nginx for my webserver. This container will host the website configurations and will forward port 80 to 3000 we can than use that port to access the website. This container is setup at : http://localhost:3000
 
-## Laravel Sponsors
+ - Container 2: php-fpm This container is used to host the php envirement and server setup. I will be using PHP8. Theres no direct access required but if you ever need to do a server side comand you can use this container to do it.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+I created a network called crawlitchallenge. All containers withing that network can talk to each others using there container names.
 
-### Premium Partners
+## Environment setup instructions
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Repository and Docker setup
 
-## Contributing
+    mkdir crawlit
+    cd crawlit
+    git clone git@github.com:broomcms/crawlit_challenge.git ./
+    docker-compose up -d --build
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Enter the PHP FPM container and type the following
 
-## Code of Conduct
+    chmod -R 0777 storage
+    mv "example.env" ".env"
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+You should now have access to http://localhost:3000
 
-## Security Vulnerabilities
+## Project flow
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+ - The user submits a payload with "URL to scan" and "Number of pages to scan"
+ - The payload is sent to the CrawIfController at the crawl() function
+ - The crawl function will then build and array of data and send it back to the ajax request in JSON format
+ - If successful, the user view will change to the report page by it self
 
-## License
+ ## Project highlights
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ - Added docker to the project
+ - Added bootstrap to the project for the user frontend
+ - Used jQuery and Ajax request to output the result to the view
+ - Created nice clean code and left comments
+ - Created a nice readme file to show that I can document when needed
+ - Explained how to reproduce the solution and how it works

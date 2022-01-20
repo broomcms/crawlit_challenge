@@ -151,22 +151,40 @@
             <h1 class="display-3 fw-bold text-uppercase">report for (<span id="nbPages">0</span>) pages</h1>
             <div class="heading-line"></div>
             <p class="lead">Ok I got it all sorted! Heres your results!</p>
+
+            <div class="text-center d-grid mt-1">
+                <a href="/" class="btn btn-primary rounded-pill pt-3 pb-3">
+                    Crawl an other site!
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+
           </div>
 
-          <table id="report" class="display" width="100%"></table>
-
-          <!-- ACCORDION CONTENT  -->
           <div class="row mt-5">
             <div class="col-md-12">
               <div class="accordion" id="accordionExample">
-                <!-- ACCORDION ITEM 1 -->
+
+                <div class="accordion-item shadow mb-3">
+                    <h2 class="accordion-header" id="headingThree">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                    Crawl Data
+                      </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <table id="report" class="display" width="100%"></table>
+                      </div>
+                    </div>
+                </div>
+
                 <div class="accordion-item shadow mb-3">
                   <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Averages
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Averages Data
                     </button>
                   </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <b>Unique Words</b><br>
                         I found a total of <span id="uwordSum">0</span> unique words on <span class="totalPages">0</span> pages and that gives me an average of <span id="uwordAvr">0</span><br><br>
@@ -175,40 +193,15 @@
                         <b>Unique images</b><br>
                         I found a total of <span id="uimageSum">0</span> unique images on <span class="totalPages">0</span> pages and that gives me an average of <span id="uimageAvr">0</span><br><br>
                         <b>All images</b><br>
-                        I found a total of <span id="imageSum">0</span> images on <span class="totalPages">0</span> pages and that gives me an average of <span id="imagedAvr">0</span><br><br>
+                        I found a total of <span id="imageSum">0</span> images on <span class="totalPages">0</span> pages and that gives me an average of <span id="imageAvr">0</span><br><br>
+                        <b>All titles</b><br>
+                        I found a total of <span id="titleSum">0</span> titles on <span class="totalPages">0</span> pages with an average of <span id="titleAvr">0</span> characters<br><br>
                         <b>Load speed</b><br>
-                        The total crawl speed of the <span class="totalPages">0</span> pages was <span id="speedSum">0</span> and that gives me an average of <span id="speedAvr">0</span>
+                        The total crawl speed of the <span class="totalPages">0</span> pages was <span id="speedSum">0</span>sec and that gives me an average of <span id="speedAvr">0</span>sec
+                    </div>
+                  </div>
+                </div>
 
-                    </div>
-                  </div>
-                </div>
-                   <!-- ACCORDION ITEM 2 -->
-                <div class="accordion-item shadow mb-3">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      do i have to pay again after trial
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                  </div>
-                </div>
-                   <!-- ACCORDION ITEM 3 -->
-                <div class="accordion-item shadow mb-3">
-                  <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  How can I get started after trial?
-                    </button>
-                  </h2>
-                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                  </div>
-                </div>
-                   <!-- ACCORDION ITEM 4 -->
                 <div class="accordion-item shadow mb-3">
                   <h2 class="accordion-header" id="headingFour">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -217,7 +210,7 @@
                   </h2>
                   <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                       No you can not. Are you kidding me? This is a free service! But if something is wrong with the above, please contact me and I might be able to make it better!
                     </div>
                   </div>
                 </div>
@@ -375,6 +368,12 @@
                         $('#uwordAvr').html(uWorddAvr['avr']);
                         $('#speedSum').html(loadAvr['sum']);
                         $('#speedAvr').html(loadAvr['avr']);
+                        $('#imageSum').html(data.res.uimg_count);
+                        $('#imageAvr').html(data.res.uimg_avr);
+                        $('#uimageSum').html(data.res.img_count);
+                        $('#uimageAvr').html(data.res.img_avr);
+                        $('#titleSum').html(data.res.title_count);
+                        $('#titleAvr').html(data.res.title_avr);
 
                         // Create a datatable instance and insert data inside
                         $('#report').DataTable( {
