@@ -41,3 +41,7 @@ RUN chmod +x /usr/local/bin/dep
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 RUN sh -c "echo 'precedence ::ffff:0:0/96 100' >> /etc/gai.conf"
+# Installing deployer
+RUN scurl -LO https://deployer.org/deployer.phar
+RUN smv deployer.phar /usr/local/bin/dep
+RUN schmod +x /usr/local/bin/dep

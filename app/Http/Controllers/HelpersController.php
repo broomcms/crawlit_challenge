@@ -175,7 +175,6 @@ class HelpersController extends Controller
                         'int_ext' => ($parseCurrent["host"]==$parseStart["host"]?"int":"ext"),
                         'time' => round($currentHTML['time'],3),
                         'html' => base64_encode($currentHTML['html']),
-                        "img" =>HelpersController::getImages($currentHTML['html']),
                         "img" => HelpersController::getImages($currentHTML['html']),
                         "img_count" => count(HelpersController::getImages($currentHTML['html'])),
                         "word_count" => count($words),
