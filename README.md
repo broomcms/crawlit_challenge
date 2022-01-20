@@ -31,9 +31,9 @@ I created a very nice docker setup for this challenge. It's composed of 2 contai
 
  - Container 1: webserver I will be using nginx for my webserver. This container will host the website configurations and will forward port 80 to 3000 we can than use that port to access the website. This container is setup at : http://localhost:3000
 
- - Container 2: php-fpm This container is used to host the php envirement and server setup. I will be using PHP8. Theres no direct access required but if you ever need to do a server side comand you can use this container to do it.
+ - Container 2: php-fpm This container is used to host the php environment and server setup. I will be using PHP8. There’s no direct access required but if you ever need to do a server side command you can use this container to do it.
 
-I created a network called crawlitchallenge. All containers withing that network can talk to each others using there container names.
+I created a network called crawlitchallenge. All container within that network can talk to each other using their container names.
 
 ## Environment setup instructions
 
@@ -51,6 +51,17 @@ Enter the PHP FPM container and type the following
 
 You should now have access to http://localhost:3000
 
+## Deploy (minimal DevOps settings)
+
+I am using a very nice deploy tool to send this repo to production in a DevOps maner.
+At the root of this repo, you will find a file called deploy.php You can edit that file to fit your needs.
+
+Once edited, use the following to deploy
+
+    dep deploy prod
+    
+This will deploy the repo to the remote server and take care of taking the last 5 states of the app using symlinks. I use these tools for small projects where I want to automate as much as possible the production process.
+
 ## Project flow
 
 <p align="center">
@@ -60,11 +71,11 @@ You should now have access to http://localhost:3000
  - The user submits a payload with "URL to scan" and "Number of pages to scan"
  - The payload is sent to the CrawIfController at the crawl() function
  - The crawl function will then build and array of data and send it back to the ajax request in JSON format
- - If successful, the user view will change to the report page by it self
+ - If successful, the user view will change to the report page by itself
 
  ## Project highlights
 
- - Added docker to the project with a 2 container network setup (PHP8 + nginx)
+ - Added docker to the project with a 2 containers network setup (PHP8 + nginx)
  - Added bootstrap to the project for the user frontend (Website is responsive)
  - Used jQuery and Ajax to receive a JSON payload from the backend
  - Created nice clean code and left comments
@@ -76,4 +87,3 @@ You should now have access to http://localhost:3000
 <p align="center">
 <a href="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" height="250"></a> <a href="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" height="250"></a> <a href="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" height="250"></a>
 </p>
-
