@@ -1,4 +1,4 @@
-<p align="center"><a href="https://agencyanalytics.com/" target="_blank"><img src="https://yt3.ggpht.com/pSA2H36bm63MQA24wuZBx_JMj0vZgKzpvjsx6WS8NSwqNT1kLamMW1XoM4BOMpz5-Faiy8pPTQ=s900-c-k-c0x00ffffff-no-rj" width="400"></a></p>
+<p align="center"><a href="https://agencyanalytics.com/" target="_blank"><img src="https://yt3.ggpht.com/pSA2H36bm63MQA24wuZBx_JMj0vZgKzpvjsx6WS8NSwqNT1kLamMW1XoM4BOMpz5-Faiy8pPTQ=s900-c-k-c0x00ffffff-no-rj" height="150"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -53,6 +53,10 @@ You should now have access to http://localhost:3000
 
 ## Project flow
 
+<p align="center">
+![image](https://user-images.githubusercontent.com/63425041/150263488-72e551b7-e860-499b-b484-3742ca4b0a30.png)
+</p>
+
  - The user submits a payload with "URL to scan" and "Number of pages to scan"
  - The payload is sent to the CrawIfController at the crawl() function
  - The crawl function will then build and array of data and send it back to the ajax request in JSON format
@@ -60,9 +64,16 @@ You should now have access to http://localhost:3000
 
  ## Project highlights
 
- - Added docker to the project
- - Added bootstrap to the project for the user frontend
- - Used jQuery and Ajax request to output the result to the view
+ - Added docker to the project with a 2 container network setup (PHP8 + nginx)
+ - Added bootstrap to the project for the user frontend (Website is responsive)
+ - Used jQuery and Ajax to receive a JSON payload from the backend
  - Created nice clean code and left comments
- - Created a nice readme file to show that I can document when needed
+ - Created a nice readme file
  - Explained how to reproduce the solution and how it works
+
+## Project screenshots
+
+<p align="center">
+<a href="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263692-69c324b0-5765-4690-97a9-d1f25db1d0f4.png" height="250"></a> <a href="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263762-3bb1eb62-0773-40ef-b040-4eb49cd91f88.png" height="250"></a> <a href="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" target="_blank"><img src="https://user-images.githubusercontent.com/63425041/150263816-0bb1d9ef-f0bd-4206-acf0-08eba8f89329.png" height="250"></a>
+</p>
+
